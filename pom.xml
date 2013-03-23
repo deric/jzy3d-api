@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jzy3d</groupId>
+    <artifactId>api</artifactId>
+    <version>0.9-SNAPSHOT</version>
+    <packaging>nbm</packaging>
+
+    <name>jzy3d-api</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <!--
+        Repository hosting NetBeans modules, especially APIs.
+        Versions are based on IDE releases, e.g.: RELEASE691
+        To create your own repository, use: nbm:populate-repository
+        -->
+        <repository>
+            <id>netbeans</id>
+            <name>NetBeans</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-api-annotations-common</artifactId>
+            <version>RELEASE73</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.gluegen</groupId>
+            <artifactId>gluegen-rt-main</artifactId>
+            <version>2.0-rc11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.jogl</groupId>
+            <artifactId>jogl-all-main</artifactId>
+            <version>2.0-rc11</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt.gtk.linux</groupId>
+            <artifactId>x86_64</artifactId>
+            <version>3.3.0-v3346</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <version>3.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>org.jzy3d.analysis</publicPackage>
+                        <publicPackage>org.jzy3d.bridge.*</publicPackage>
+                        <publicPackage>org.jzy3d.chart.*</publicPackage>
+                        <publicPackage>org.jzy3d.colors</publicPackage>
+                        <publicPackage>org.jzy3d.colors.colormaps</publicPackage>
+                        <publicPackage>org.jzy3d.contour</publicPackage>
+                        <publicPackage>org.jzy3d.events</publicPackage>
+                        <publicPackage>org.jzy3d.global</publicPackage>
+                        <publicPackage>org.jzy3d.io</publicPackage>
+                        <publicPackage>org.jzy3d.io.obj</publicPackage>
+                        <publicPackage>org.jzy3d.maths.*</publicPackage>
+                        <publicPackage>org.jzy3d.picking</publicPackage>
+                        <publicPackage>org.jzy3d.plot2d.primitive</publicPackage>
+                        <publicPackage>org.jzy3d.plot2d.rendering</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.builder.*</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.pipelines</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.primitives.*</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.canvas</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.legends</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.legends.colorbars</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.lights</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.ordering</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.scene</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.textures</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.tooltips</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.rendering.view.*</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.text.*</publicPackage>
+                        <publicPackage>org.jzy3d.plot3d.transform</publicPackage>
+                        <publicPackage>org.jzy3d.ui</publicPackage>
+                        <publicPackage>org.jzy3d.ui.editors</publicPackage>
+                        <publicPackage>org.jzy3d.ui.views</publicPackage>
+                        <publicPackage>org.jzy3d.utils</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- NetBeans 6.9+ requires JDK 6 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <!-- to have the jar plugin pickup the nbm generated manifest -->
+                    <useDefaultManifestFile>true</useDefaultManifestFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
