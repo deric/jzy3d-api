@@ -25,12 +25,12 @@ import com.jogamp.opengl.util.awt.Screenshot;
  * @author Martin Pernollet
  */
 public class Renderer3d implements GLEventListener{
-	
+
 	/** Initialize a Renderer attached to the given View.*/
 	public Renderer3d(View view){
 		this(view, false, false);
 	}
-	
+
 	/** Initialize a Renderer attached to the given View, and activate GL trace and errors to console.*/
 	public Renderer3d(View view, boolean traceGL, boolean debugGL){
 		this.view = view;
@@ -38,10 +38,10 @@ public class Renderer3d implements GLEventListener{
 		this.debugGL = debugGL;
 		this.glu = new GLU();
 	}
-	
+
 
 	/***************************************************************/
-	
+
 	/** 
 	 * Called when the GLDrawable is rendered for the first time.
 	 * When one calls Scene.init() function, this function is called and makes 
@@ -62,8 +62,13 @@ public class Renderer3d implements GLEventListener{
 			    canvas.getGL().getContext().setGL( GLPipelineFactory.create("javax.media.opengl.Debug", null, canvas.getGL(), null) );
 	        if(traceGL) 
 	            canvas.getGL().getContext().setGL( GLPipelineFactory.create("javax.media.opengl.Trace", null, canvas.getGL(), new Object[] { System.err } ) );
-		    
+
 	        view.init(canvas.getGL().getGL2());
+
+	        if(view!=null){
+                view.getScene().getGraph().mountAllGLBindedResources(canvas.getGL().getGL2());
+	            view.setBoundManual(view.getScene().getGraph().getBounds());
+	        }
 		}
 	}
 	/** 
@@ -84,17 +89,17 @@ public class Renderer3d implements GLEventListener{
 	        }
 		}
 	}
-	
+
 	/** Called when the GLDrawable is resized.*/
 	@Override
 	public void reshape(GLAutoDrawable canvas, int x, int y, int width, int height){
 		//System.err.println("reshape with " + width + " " + height);
 		this.width  = width;
 		this.height = height;
-		
+
 		if(view != null){
 	        view.dimensionDirty = true;
-	        
+
 	        if(canvas!=null){
 	            //GL gl1 = canvas.getGL();
     	        GL2 gl = canvas.getGL().getGL2();
@@ -103,41 +108,41 @@ public class Renderer3d implements GLEventListener{
 	        }
 		}
 	}
-	
+
 	//protected boolean first = true;
-	
+
 	@Override
 	public void dispose(GLAutoDrawable arg0) {
 		view = null;
 		glu  = null;
 	}
-	
+
 	/***************************************************************/	
 
 	public void nextDisplayUpdateScreenshot(){
 		doScreenshotAtNextDisplay = true;
 	}
-	
+
 	public BufferedImage getLastScreenshot(){
 		return image;
 	}
-	
+
 	/***************************************************************/	
-	
+
 	/** Return the width that was given after the last resize event.*/
 	public int getWidth(){
 		return width;
 	}
-	
+
 	/** Return the height that was given after the last resize event.*/
 	public int getHeight(){
 		return height;
 	}
-	
+
 	/***************************************************************/	
-	
+
 	protected GLU  glu;
-	
+
 	protected View    	  view;
 	protected int     	  width     = 0; 
 	protected int     	  height    = 0;
@@ -145,5 +150,5 @@ public class Renderer3d implements GLEventListener{
 	protected BufferedImage image = null;
 	protected boolean 	  traceGL = false;
 	protected boolean 	  debugGL = false;
-	
+
 }
