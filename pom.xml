@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
-            <version>RELEASE73</version>
+            <version>RELEASE74</version>
         </dependency>
         <dependency>
             <groupId>net.sf.opencsv</groupId>
